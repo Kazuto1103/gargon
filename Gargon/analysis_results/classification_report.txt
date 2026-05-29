@@ -1,0 +1,89 @@
+======================================================================
+SURFACE ROUGHNESS CLASSIFICATION REPORT
+======================================================================
+
+SUMMARY
+----------------------------------------------------------------------
+Total Images Analyzed:  63
+Rough (Kasar):          63 (100.0%)
+Smooth (Halus):         0 (0.0%)
+Unknown:                0
+
+FEATURE STATISTICS
+----------------------------------------------------------------------
+GLCM Contrast       - Mean: 136.975693, Std: 29.016883
+GLCM Homogeneity    - Mean: 0.250441, Std: 0.022279
+GLCM Energy         - Mean: 0.082356, Std: 0.019953
+LBP Entropy         - Mean: 3.192394, Std: 0.023922
+Avg Confidence      - 0.993926
+
+HIGH-CONFIDENCE CLASSIFICATIONS (>80%)
+----------------------------------------------------------------------
+Kasar (High Conf):   63 images
+Halus (High Conf):   0 images
+
+DETAILED CLASSIFICATION RESULTS
+----------------------------------------------------------------------
+figura1_exterior1_0.tif                  | kasar    | Conf: 99.22%
+figura1_exterior1_1.tif                  | kasar    | Conf: 99.24%
+figura1_exterior1_10.tif                 | kasar    | Conf: 99.35%
+figura1_exterior1_11.tif                 | kasar    | Conf: 99.38%
+figura1_exterior1_12.tif                 | kasar    | Conf: 99.41%
+figura1_exterior1_13.tif                 | kasar    | Conf: 99.37%
+figura1_exterior1_14.tif                 | kasar    | Conf: 99.33%
+figura1_exterior1_15.tif                 | kasar    | Conf: 99.42%
+figura1_exterior1_16.tif                 | kasar    | Conf: 99.37%
+figura1_exterior1_17.tif                 | kasar    | Conf: 99.40%
+figura1_exterior1_18.tif                 | kasar    | Conf: 99.40%
+figura1_exterior1_19.tif                 | kasar    | Conf: 99.41%
+figura1_exterior1_20.tif                 | kasar    | Conf: 99.38%
+figura1_exterior1_21.tif                 | kasar    | Conf: 99.35%
+figura1_exterior1_22.tif                 | kasar    | Conf: 99.38%
+figura1_exterior1_23.tif                 | kasar    | Conf: 99.46%
+figura1_exterior1_24.tif                 | kasar    | Conf: 99.56%
+figura1_exterior1_25.tif                 | kasar    | Conf: 99.45%
+figura1_exterior1_5.tif                  | kasar    | Conf: 99.33%
+figura1_exterior1_6.tif                  | kasar    | Conf: 99.33%
+figura1_exterior1_7.tif                  | kasar    | Conf: 99.35%
+figura1_exterior1_8.tif                  | kasar    | Conf: 99.32%
+figura1_exterior2_0.tif                  | kasar    | Conf: 99.48%
+figura1_exterior2_1.tif                  | kasar    | Conf: 99.49%
+figura1_exterior2_10.tif                 | kasar    | Conf: 99.47%
+figura1_exterior2_11.tif                 | kasar    | Conf: 99.39%
+figura1_exterior2_12.tif                 | kasar    | Conf: 99.43%
+figura1_exterior2_13.tif                 | kasar    | Conf: 99.47%
+figura1_exterior2_14.tif                 | kasar    | Conf: 99.42%
+figura1_exterior2_15.tif                 | kasar    | Conf: 99.45%
+figura1_exterior2_16.tif                 | kasar    | Conf: 99.51%
+figura1_exterior2_17.tif                 | kasar    | Conf: 99.44%
+figura1_exterior2_18.tif                 | kasar    | Conf: 99.51%
+figura1_exterior2_19.tif                 | kasar    | Conf: 99.51%
+figura1_exterior2_2.tif                  | kasar    | Conf: 99.46%
+figura1_exterior2_24.tif                 | kasar    | Conf: 99.53%
+figura1_exterior2_25.tif                 | kasar    | Conf: 99.47%
+figura1_exterior2_26.tif                 | kasar    | Conf: 99.52%
+figura1_exterior2_27.tif                 | kasar    | Conf: 99.53%
+figura1_exterior2_28.tif                 | kasar    | Conf: 99.52%
+figura1_exterior2_29.tif                 | kasar    | Conf: 99.52%
+figura1_exterior2_3.tif                  | kasar    | Conf: 99.52%
+figura1_exterior2_30.tif                 | kasar    | Conf: 99.58%
+figura1_exterior2_31.tif                 | kasar    | Conf: 99.51%
+figura1_exterior2_32.tif                 | kasar    | Conf: 99.67%
+figura1_exterior2_4.tif                  | kasar    | Conf: 99.54%
+figura1_exterior2_5.tif                  | kasar    | Conf: 99.51%
+figura1_exterior2_7.tif                  | kasar    | Conf: 99.51%
+figura1_exterior2_8.tif                  | kasar    | Conf: 99.44%
+figura1_exterior2_9.tif                  | kasar    | Conf: 99.51%
+figura1_exterior3_1.tif                  | kasar    | Conf: 99.31%
+figura1_exterior3_14.tif                 | kasar    | Conf: 99.20%
+figura1_exterior3_2.tif                  | kasar    | Conf: 99.27%
+figura1_exterior3_20.tif                 | kasar    | Conf: 99.12%
+figura1_exterior3_21.tif                 | kasar    | Conf: 99.19%
+figura1_exterior3_23.tif                 | kasar    | Conf: 99.09%
+figura1_exterior3_24.tif                 | kasar    | Conf: 99.13%
+figura1_exterior3_26.tif                 | kasar    | Conf: 99.06%
+figura1_exterior3_27.tif                 | kasar    | Conf: 99.03%
+figura1_exterior3_4.tif                  | kasar    | Conf: 99.07%
+figura1_exterior3_5.tif                  | kasar    | Conf: 99.03%
+figura1_exterior4_18.tif                 | kasar    | Conf: 99.46%
+figura1_exterior4_26.tif                 | kasar    | Conf: 99.62%
