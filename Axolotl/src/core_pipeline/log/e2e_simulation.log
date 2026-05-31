@@ -1,0 +1,334 @@
+============================================================
+       STARTING AUTOMATED PIPELINE INTEGRATION TESTS        
+============================================================
+
+[TEST CASE #1] Input: "maju ke depan dua meter"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "DIRECT_COMMAND",
+    "action": "MOVE_FORWARD"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "FRONT",
+      "quantity": 2.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #2] Input: "mju dpan 2 mtr"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "DIRECT_COMMAND",
+    "action": "MOVE_FORWARD"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "FRONT",
+      "quantity": 2.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #3] Input: "putar ke kiri 90 derajat besok jam 3 sore"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "SCHEDULED_COMMAND",
+    "action": "ROTATE"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "LEFT",
+      "quantity": 90.0,
+      "unit": "DERAJAT"
+    },
+    "temporal": {
+      "is_scheduled": true,
+      "execute_at": "besok, jam 3 sore",
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #4] Input: "geser kekiri dua meter bsk pagi"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "SCHEDULED_COMMAND",
+    "action": "MOVE_FORWARD"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "LEFT",
+      "quantity": 2.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": true,
+      "execute_at": "besok pagi",
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #5] Input: "berhenti sekarang juga"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "STOP_COMMAND",
+    "action": "STOP",
+    "type": "EMERGENCY_BRAKE"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": null,
+      "quantity": null,
+      "unit": null
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #6] Input: "woi robot berhenti secepatnya dong"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "STOP_COMMAND",
+    "action": "STOP",
+    "type": "EMERGENCY_BRAKE"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": null,
+      "quantity": null,
+      "unit": null
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #7] Input: "tiap 5 mnt belok kekanan 90 deg"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "REPEATED_COMMAND",
+    "action": "ROTATE"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "RIGHT",
+      "quantity": 90.0,
+      "unit": "DERAJAT"
+    },
+    "temporal": {
+      "is_scheduled": true,
+      "execute_at": null,
+      "interval_quantity": 5.0,
+      "interval_unit": "MENIT"
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": false,
+    "fallback_reason": null
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #8] Input: "setiap jam muter balik dua kali"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "REPEATED_COMMAND",
+    "action": "ROTATE"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "BACK",
+      "quantity": 1.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": true,
+      "execute_at": null,
+      "interval_quantity": 2.0,
+      "interval_unit": "KALI"
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": true,
+    "fallback_reason": "ACTION_FALLBACK: No B-ACTION slot found; resolved 'putar' via direct ACTION_MAP lookup -> 'ROTATE' | QUANTITY_FALLBACK: No spatial quantity found, defaulting to 1.0 | UNIT_FALLBACK: No spatial unit found, defaulting to METER"
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #9] Input: "maju 5 meter"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "DIRECT_COMMAND",
+    "action": "MOVE_FORWARD"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "FRONT",
+      "quantity": 5.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": true,
+    "fallback_reason": "DIRECTION_FALLBACK: No DIRECTION slot found for action 'MOVE_FORWARD'. Assigned default direction 'FRONT'."
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #10] Input: "angkat naik meter"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "DIRECT_COMMAND",
+    "action": "MOVE_ARM_UP"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "UP",
+      "quantity": 1.0,
+      "unit": "METER"
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": true,
+    "fallback_reason": "DIRECTION_FALLBACK: No DIRECTION slot found for action 'MOVE_ARM_UP'. Assigned default direction 'UP'. | QUANTITY_PARSE_FAILED: unrecognized value 'naik', defaulting to 1.0"
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #11] Input: "hari ini cuaca cerah banget ya robot"
+{
+  "status": "REJECTED",
+  "command": {
+    "intent": "UNKNOWN",
+    "action": null,
+    "type": null
+  },
+  "parameters": {
+    "spatial": {
+      "direction": null,
+      "quantity": null,
+      "unit": null
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": true,
+    "fallback_reason": "REJECTED: Intent classified as UNKNOWN. No valid command payload generated."
+  }
+}
+------------------------------------------------------------
+
+[TEST CASE #12] Input: "mundur 10cm skrg"
+{
+  "status": "SUCCESS",
+  "command": {
+    "intent": "DIRECT_COMMAND",
+    "action": "MOVE_BACKWARD"
+  },
+  "parameters": {
+    "spatial": {
+      "direction": "BACK",
+      "quantity": 10.0,
+      "unit": "CENTIMETER"
+    },
+    "temporal": {
+      "is_scheduled": false,
+      "execute_at": null,
+      "interval_quantity": null,
+      "interval_unit": null
+    }
+  },
+  "pipeline_metadata": {
+    "fallback_triggered": true,
+    "fallback_reason": "DIRECTION_FALLBACK: No DIRECTION slot found for action 'MOVE_BACKWARD'. Assigned default direction 'BACK'."
+  }
+}
+------------------------------------------------------------
+
+Automated integration tests completed successfully.
+
+Full execution log successfully written to: D:\Project\Axolotl\src\core_pipeline\log\e2e_simulation.log

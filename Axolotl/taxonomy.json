@@ -1,0 +1,249 @@
+{
+  "project_name": "Grounded NLP: Text-to-Action Sequence Generator",
+  "version": "1.0.0",
+  "description": "Single Source of Truth (SSoT) untuk taksonomi Intent, Slot, Grounding Rules, dan Batasan Kosakata bahasa Indonesia.",
+  "intents": {
+    "DIRECT_COMMAND": {
+      "execution_type": "DIRECT",
+      "description": "Perintah gerakan robot yang harus segera dieksekusi tanpa penundaan waktu.",
+      "examples": [
+        "maju dua meter",
+        "putar ke kanan sembilan puluh derajat dengan cepat",
+        "geser ke kiri 50 centimeter pelan-pelan"
+      ]
+    },
+    "SCHEDULED_COMMAND": {
+      "execution_type": "SCHEDULED",
+      "description": "Perintah gerakan robot yang dijadwalkan untuk dieksekusi pada waktu spesifik di masa depan.",
+      "examples": [
+        "maju satu meter pukul tiga sore nanti",
+        "besok jam 10 pagi putar balik",
+        "tolong geser ke kanan 2 meter nanti malam pukul delapan"
+      ]
+    },
+    "REPEATED_COMMAND": {
+      "execution_type": "REPEATED",
+      "description": "Perintah gerakan robot yang dieksekusi secara berkala (berulang) dengan interval tertentu.",
+      "examples": [
+        "putar ke kiri sepuluh derajat setiap lima detik",
+        "maju setengah meter tiap jam",
+        "lakukan pergerakan maju 2 langkah setiap 10 menit mulai jam 9 pagi"
+      ]
+    },
+    "STOP_COMMAND": {
+      "execution_type": "STOP",
+      "description": "Perintah untuk menghentikan pergerakan aktif robot saat ini atau membatalkan seluruh jadwal antrean aksi.",
+      "examples": [
+        "berhenti sekarang",
+        "setop robot",
+        "batalkan semua jadwal",
+        "diam di tempat"
+      ]
+    }
+  },
+  "slots": {
+    "ACTION": {
+      "tag_bio": ["B-ACTION", "I-ACTION"],
+      "description": "Kata kerja utama yang merepresentasikan jenis pergerakan atau manipulasi fisik robot."
+    },
+    "DIRECTION": {
+      "tag_bio": ["B-DIRECTION", "I-DIRECTION"],
+      "description": "Arah relatif atau absolut dari pergerakan robot."
+    },
+    "QUANTITY": {
+      "tag_bio": ["B-QUANTITY", "I-QUANTITY"],
+      "description": "Besaran numerik atau kuantitatif dari gerakan, jarak, sudut, atau waktu."
+    },
+    "UNIT": {
+      "tag_bio": ["B-UNIT", "I-UNIT"],
+      "description": "Satuan ukuran dari kuantitas yang diberikan (panjang, sudut, frekuensi, atau waktu)."
+    },
+    "MODIFIER": {
+      "tag_bio": ["B-MODIFIER", "I-MODIFIER"],
+      "description": "Keterangan tambahan untuk memodifikasi cara kerja aksi (misalnya kecepatan atau tingkat kedaruratan)."
+    },
+    "TIME": {
+      "tag_bio": ["B-TIME", "I-TIME"],
+      "description": "Keterangan waktu spesifik atau relatif untuk eksekusi penjadwalan."
+    },
+    "DATE": {
+      "tag_bio": ["B-DATE", "I-DATE"],
+      "description": "Keterangan tanggal spesifik atau relatif untuk eksekusi penjadwalan."
+    }
+  },
+  "vocabulary_boundary": {
+    "ACTION": [
+      "maju", "gerak", "jalan", "meluncur", "geser", "bergeser",
+      "mundur", "kembali", "kebelakang",
+      "putar", "belok", "berputar", "memutar", "belokkan",
+      "berhenti", "setop", "stop", "diam", "tahan", "hentikan", "batal", "batalkan",
+      "angkat", "naikkan", "turunkan", "turun", "naik",
+      "ambil", "jepit", "pegang", "cengkeram", "tangkap",
+      "lepas", "lepaskan", "taruh", "letakkan"
+    ],
+    "DIRECTION": [
+      "kiri", "mengiri", "ke kiri", "sebelah kiri",
+      "kanan", "menganan", "ke kanan", "sebelah kanan",
+      "depan", "ke depan", "sebelah depan", "lurus",
+      "belakang", "ke belakang", "sebelah belakang",
+      "atas", "ke atas", "sebelah atas",
+      "bawah", "ke bawah", "sebelah bawah",
+      "searah jarum jam", "berlawanan jarum jam",
+      "balik", "putar balik", "kembali"
+    ],
+    "QUANTITY_WORDS": [
+      "nol", "kosong", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan",
+      "sepuluh", "sebelas", "dua belas", "setengah", "separuh", "seperempat", "tiap", "setiap", "masing-masing"
+    ],
+    "UNIT": [
+      "meter", "m", "centimeter", "cm", "senti", "mili", "milimeter", "mm",
+      "derajat", "deg", "derajad", "putaran", "langkah",
+      "kali", "x",
+      "detik", "sekon", "s", "menit", "mnt", "jam", "hari"
+    ],
+    "MODIFIER": [
+      "cepat", "kencang", "ngebut", "cepet", "maksimal", "penuh",
+      "lambat", "pelan", "perlahan", "alon-alon", "pelan-pelan",
+      "sedang", "normal", "biasa",
+      "darurat", "sekarang juga", "secepatnya"
+    ],
+    "TIME": [
+      "pukul", "jam", "siang", "pagi", "sore", "malam", "subuh", "tengah malam",
+      "nanti", "sekarang", "segera", "detik", "menit", "jam", "lagi", "kemudian", "lalu"
+    ],
+    "DATE": [
+      "hari ini", "besok", "lusa", "kemarin", "minggu", "senin", "selasa", "rabu", "kamis", "jumat", "sabtu",
+      "depan", "lusa", "januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september",
+      "oktober", "november", "desember"
+    ]
+  },
+  "grounding_rules": {
+    "action_mapping": {
+      "maju": "MOVE",
+      "gerak": "MOVE",
+      "jalan": "MOVE",
+      "meluncur": "MOVE",
+      "geser": "MOVE",
+      "bergeser": "MOVE",
+      "mundur": "MOVE",
+      "kembali": "MOVE",
+      "kebelakang": "MOVE",
+      "putar": "ROTATE",
+      "belok": "ROTATE",
+      "berputar": "ROTATE",
+      "memutar": "ROTATE",
+      "belokkan": "ROTATE",
+      "berhenti": "STOP",
+      "setop": "STOP",
+      "stop": "STOP",
+      "diam": "STOP",
+      "tahan": "STOP",
+      "hentikan": "STOP",
+      "batal": "STOP",
+      "batalkan": "STOP",
+      "angkat": "MOVE_ARM_UP",
+      "naikkan": "MOVE_ARM_UP",
+      "naik": "MOVE_ARM_UP",
+      "turunkan": "MOVE_ARM_DOWN",
+      "turun": "MOVE_ARM_DOWN",
+      "ambil": "GRAB",
+      "jepit": "GRAB",
+      "pegang": "GRAB",
+      "cengkeram": "GRAB",
+      "tangkap": "GRAB",
+      "lepas": "RELEASE",
+      "lepaskan": "RELEASE",
+      "taruh": "RELEASE",
+      "letakkan": "RELEASE"
+    },
+    "direction_mapping": {
+      "kiri": "LEFT",
+      "mengiri": "LEFT",
+      "ke kiri": "LEFT",
+      "sebelah kiri": "LEFT",
+      "kanan": "RIGHT",
+      "menganan": "RIGHT",
+      "ke kanan": "RIGHT",
+      "sebelah kanan": "RIGHT",
+      "depan": "FORWARD",
+      "ke depan": "FORWARD",
+      "sebelah depan": "FORWARD",
+      "lurus": "FORWARD",
+      "belakang": "BACKWARD",
+      "ke belakang": "BACKWARD",
+      "sebelah belakang": "BACKWARD",
+      "atas": "UP",
+      "ke atas": "UP",
+      "sebelah atas": "UP",
+      "bawah": "DOWN",
+      "ke bawah": "DOWN",
+      "sebelah bawah": "DOWN",
+      "searah jarum jam": "CLOCKWISE",
+      "berlawanan jarum jam": "COUNTER_CLOCKWISE",
+      "balik": "BACKWARD",
+      "putar balik": "BACKWARD"
+    },
+    "modifier_mapping": {
+      "cepat": 1.5,
+      "kencang": 1.5,
+      "ngebut": 1.5,
+      "cepet": 1.5,
+      "maksimal": 2.0,
+      "penuh": 2.0,
+      "lambat": 0.5,
+      "pelan": 0.5,
+      "perlahan": 0.5,
+      "alon-alon": 0.5,
+      "pelan-pelan": 0.5,
+      "sedang": 1.0,
+      "normal": 1.0,
+      "biasa": 1.0,
+      "darurat": 2.0,
+      "sekarang juga": 1.5,
+      "secepatnya": 1.5
+    },
+    "unit_mapping": {
+      "meter": "METER",
+      "m": "METER",
+      "centimeter": "CENTIMETER",
+      "cm": "CENTIMETER",
+      "senti": "CENTIMETER",
+      "milimeter": "MILIMETER",
+      "mm": "MILIMETER",
+      "mili": "MILIMETER",
+      "derajat": "DEGREE",
+      "deg": "DEGREE",
+      "derajad": "DEGREE",
+      "putaran": "REVOLUTION",
+      "langkah": "STEP",
+      "kali": "TIMES",
+      "x": "TIMES",
+      "detik": "SECOND",
+      "sekon": "SECOND",
+      "s": "SECOND",
+      "menit": "MINUTE",
+      "mnt": "MINUTE",
+      "jam": "HOUR",
+      "hari": "DAY"
+    },
+    "quantity_word_mapping": {
+      "nol": 0.0,
+      "kosong": 0.0,
+      "satu": 1.0,
+      "dua": 2.0,
+      "tiga": 3.0,
+      "empat": 4.0,
+      "lima": 5.0,
+      "enam": 6.0,
+      "tujuh": 7.0,
+      "delapan": 8.0,
+      "sembilan": 9.0,
+      "sepuluh": 10.0,
+      "sebelas": 11.0,
+      "dua belas": 12.0,
+      "setengah": 0.5,
+      "separuh": 0.5,
+      "seperempat": 0.25
+    }
+  }
+}
