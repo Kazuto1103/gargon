@@ -1,0 +1,12 @@
+=================================================================
+              CAMERA STREAM SESSION PERFORMANCE REPORT
+=================================================================
+Waktu Sesi Selesai : 2026-06-04 22:04:17
+Sumber Input Awal  : 1
+Sumber Input Aktif : 1
+Resolusi Kamera    : 640 x 480 pixels
+Rata-rata FPS      : 16.04 FPS
+Pelepasan Resource : [OK] cap.release() dipanggil secara aman
+Status Load Model  : [OK] Model & Scaler Berhasil Dimuat
+Total Frame Prediksi: 38 frame
+=================================================================

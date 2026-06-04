@@ -1,0 +1,12 @@
+=================================================================
+              CAMERA STREAM SESSION PERFORMANCE REPORT
+=================================================================
+Waktu Sesi Selesai : 2026-06-05 03:22:55
+Sumber Input Awal  : http://10.135.213.156:4747/video
+Sumber Input Aktif : http://10.135.213.156:4747/video
+Resolusi Kamera    : 640 x 480 pixels
+Rata-rata FPS      : 0.00 FPS
+Pelepasan Resource : [OK] cap.release() dipanggil secara aman
+Status Load Model  : [OK] Model & Scaler Berhasil Dimuat
+Total Frame Prediksi: 0 frame
+=================================================================

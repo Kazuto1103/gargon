@@ -1,0 +1,164 @@
+================================================================================
+          LAPORAN EKSPERIMEN PARAMETER & TRAINING PIPELINE (FASE 1)
+================================================================================
+Dibuat pada : 2026-06-04 21:07:37
+Model       : MLPClassifier (Neural Network: (64, 32) nodes)
+Dataset     : data/NewData/Cropped50x/
+Data Split  : 60% Training / 40% Testing (random_state=42)
+================================================================================
+
+
+1. RINGKASAN PERBANDINGAN ANTAR RUN
+--------------------------------------------------------------------------------
+Scenario | GLCM d | LBP R | Epochs | Final Loss  | Train Acc | Test Acc 
+--------------------------------------------------------------------------------
+RUN 1    | 1      | 1     | 8      | 0.775400    | 0.4448    | 0.4444   
+RUN 2    | 1      | 1     | 15     | 0.766865    | 0.4537    | 0.4635   
+RUN 3    | 3      | 2     | 15     | 0.811268    | 0.5559    | 0.5556   
+--------------------------------------------------------------------------------
+
+
+2. ANALISIS EDUKATIF DAN REKOMENDASI PARAMETER
+--------------------------------------------------------------------------------
+  - RUN 1 vs RUN 2 (Efek Penambahan Epoch):
+    Dengan parameter mikro yang sama (d=1, R=1), penambahan epoch dari 8 menjadi 15
+    membantu model MLP mempelajari bobot lebih optimal. Hal ini ditunjukkan oleh penurunan
+    Loss akhir serta tren pergerakan akurasi data Training dan Testing.
+
+  - RUN 2 vs RUN 3 (Efek Perubahan Fitur Mikro ke Makro):
+    Perubahan parameter ke Makro (d=3, R=2) mengubah radius ekstraksi tekstur spasial.
+    Jarak GLCM d=3 menangkap ketergantungan piksel dengan jarak lebih renggang, sementara
+    LBP R=2 menganalisis pola biner lokal dengan wilayah tetangga yang lebih luas.
+    Perhatikan apakah representasi makro ini menghasilkan akurasi yang lebih baik
+    atau justru menurunkan performa klasifikasi dikarenakan hilangnya detail mikro tekstur.
+
+--------------------------------------------------------------------------------
+
+
+3. RINCIAN EVALUASI DETAILED PER SCENARIO RUN
+================================================================================
+
+>>> RUN 1 (Parameter Mikro | Epoch Rendah)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 1
+    - LBP Radius (R)       : 1
+    - Total Epoch          : 8
+    - Final Train Loss     : 0.775400
+    - Final Train Accuracy : 0.4448 (44.48%)
+    - Final Test Accuracy  : 0.4444 (44.44%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 3.944858 | [===================================>]
+      Epoch 02 | 1.644449 | [==============>                     ]
+      Epoch 03 | 1.010842 | [========>                           ]
+      Epoch 04 | 0.898671 | [=======>                            ]
+      Epoch 05 | 0.821018 | [=======>                            ]
+      Epoch 06 | 0.715250 | [======>                             ]
+      Epoch 07 | 0.731272 | [======>                             ]
+      Epoch 08 | 0.775400 | [======>                             ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      768        |      0         
+      Actual Anomalous  |      960        |      0         
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.44      1.00      0.62       768
+      Anomalous (1)       0.00      0.00      0.00       960
+      
+           accuracy                           0.44      1728
+          macro avg       0.22      0.50      0.31      1728
+       weighted avg       0.20      0.44      0.27      1728
+      
+
+================================================================================
+
+>>> RUN 2 (Parameter Mikro | Epoch Tinggi)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 1
+    - LBP Radius (R)       : 1
+    - Total Epoch          : 15
+    - Final Train Loss     : 0.766865
+    - Final Train Accuracy : 0.4537 (45.37%)
+    - Final Test Accuracy  : 0.4635 (46.35%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 3.944858 | [===================================>]
+      Epoch 02 | 1.644449 | [==============>                     ]
+      Epoch 03 | 1.010842 | [========>                           ]
+      Epoch 04 | 0.898671 | [=======>                            ]
+      Epoch 05 | 0.821018 | [=======>                            ]
+      Epoch 06 | 0.715250 | [======>                             ]
+      Epoch 07 | 0.731272 | [======>                             ]
+      Epoch 08 | 0.775400 | [======>                             ]
+      Epoch 09 | 0.757977 | [======>                             ]
+      Epoch 10 | 0.780795 | [======>                             ]
+      Epoch 11 | 0.777627 | [======>                             ]
+      Epoch 12 | 0.785531 | [======>                             ]
+      Epoch 13 | 0.788514 | [======>                             ]
+      Epoch 14 | 0.797677 | [=======>                            ]
+      Epoch 15 | 0.766865 | [======>                             ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      658        |      110       
+      Actual Anomalous  |      817        |      143       
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.45      0.86      0.59       768
+      Anomalous (1)       0.57      0.15      0.24       960
+      
+           accuracy                           0.46      1728
+          macro avg       0.51      0.50      0.41      1728
+       weighted avg       0.51      0.46      0.39      1728
+      
+
+================================================================================
+
+>>> RUN 3 (Parameter Makro | Epoch Tinggi)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 3
+    - LBP Radius (R)       : 2
+    - Total Epoch          : 15
+    - Final Train Loss     : 0.811268
+    - Final Train Accuracy : 0.5559 (55.59%)
+    - Final Test Accuracy  : 0.5556 (55.56%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 11.958196 | [===================================>]
+      Epoch 02 | 7.390203 | [=====================>              ]
+      Epoch 03 | 4.193332 | [============>                       ]
+      Epoch 04 | 1.276073 | [===>                                ]
+      Epoch 05 | 0.745822 | [==>                                 ]
+      Epoch 06 | 0.843562 | [==>                                 ]
+      Epoch 07 | 0.835159 | [==>                                 ]
+      Epoch 08 | 0.757978 | [==>                                 ]
+      Epoch 09 | 0.954458 | [==>                                 ]
+      Epoch 10 | 0.885506 | [==>                                 ]
+      Epoch 11 | 0.995342 | [==>                                 ]
+      Epoch 12 | 1.063955 | [===>                                ]
+      Epoch 13 | 1.593616 | [====>                               ]
+      Epoch 14 | 1.204511 | [===>                                ]
+      Epoch 15 | 0.811268 | [==>                                 ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      0          |      768       
+      Actual Anomalous  |      0          |      960       
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.00      0.00      0.00       768
+      Anomalous (1)       0.56      1.00      0.71       960
+      
+           accuracy                           0.56      1728
+          macro avg       0.28      0.50      0.36      1728
+       weighted avg       0.31      0.56      0.40      1728
+      
+
+================================================================================

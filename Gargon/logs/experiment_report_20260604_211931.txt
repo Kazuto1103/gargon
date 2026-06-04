@@ -1,0 +1,170 @@
+================================================================================
+          LAPORAN EKSPERIMEN PARAMETER & TRAINING PIPELINE (FASE 1)
+================================================================================
+Dibuat pada : 2026-06-04 21:19:31
+Model       : MLPClassifier (Neural Network: (64, 32) nodes, lr_init=0.01)
+Dataset     : data/NewData/Cropped50x/ (Strict Directory Lock)
+Data Split  : 60% Training / 40% Testing (random_state=42)
+Distribusi  : Kelas 0 = 1920 | Kelas 1 = 2400
+Normalisasi : StandardScaler (Disuntikkan setelah train_test_split)
+================================================================================
+
+
+1. RINGKASAN PERBANDINGAN ANTAR RUN
+--------------------------------------------------------------------------------
+Scenario | GLCM d | LBP R | Epochs | Final Loss  | Train Acc | Test Acc 
+--------------------------------------------------------------------------------
+RUN 1    | 1      | 1     | 8      | 0.058182    | 0.9784    | 0.9803   
+RUN 2    | 1      | 1     | 15     | 0.038988    | 0.9815    | 0.9826   
+RUN 3    | 3      | 2     | 15     | 0.016955    | 0.9969    | 0.9815   
+--------------------------------------------------------------------------------
+
+
+2. ANALISIS EDUKATIF DAN REKOMENDASI PARAMETER
+--------------------------------------------------------------------------------
+  - EFEK PENYUNTIKAN FEATURE SCALING (StandardScaler):
+    Dengan StandardScaler, rentang fitur GLCM (Contrast berkisar ratusan) disetarakan dengan
+    LBP (Histogram bernilai 0-1). Hal ini mencegah bias terhadap fitur bernilai besar,
+    sehingga Neural Network (MLPClassifier) dapat mempelajari pola tekstur LBP secara efektif.
+
+  - RUN 1 vs RUN 2 (Efek Penambahan Epoch & LR 0.01):
+    Dengan parameter mikro yang sama (d=1, R=1) dan learning rate agresif (0.01), penambahan
+    epoch dari 8 menjadi 15 melatih bobot model secara optimal, terlihat dari penurunan
+    Loss yang cepat dan peningkatan signifikan pada akurasi Testing.
+
+  - RUN 2 vs RUN 3 (Efek Perubahan Fitur Mikro ke Makro):
+    Perubahan parameter ke Makro (d=3, R=2) mengubah jangkauan analisis tekstur.
+    Jarak GLCM d=3 menangkap variasi spasial yang lebih luas, sedangkan LBP R=2 menganalisis
+    tetangga piksel yang lebih besar. Kombinasi ini memberikan deskripsi tekstur yang lebih
+    stabil terhadap variasi mikro pada permukaan kasar.
+
+--------------------------------------------------------------------------------
+
+
+3. RINCIAN EVALUASI DETAILED PER SCENARIO RUN
+================================================================================
+
+>>> RUN 1 (Parameter Mikro | Epoch Rendah)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 1
+    - LBP Radius (R)       : 1
+    - Total Epoch          : 8
+    - Final Train Loss     : 0.058182
+    - Final Train Accuracy : 0.9784 (97.84%)
+    - Final Test Accuracy  : 0.9803 (98.03%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 0.361187 | [===================================>]
+      Epoch 02 | 0.159027 | [===============>                    ]
+      Epoch 03 | 0.117728 | [===========>                        ]
+      Epoch 04 | 0.096829 | [=========>                          ]
+      Epoch 05 | 0.096581 | [=========>                          ]
+      Epoch 06 | 0.093084 | [=========>                          ]
+      Epoch 07 | 0.078021 | [=======>                            ]
+      Epoch 08 | 0.058182 | [=====>                              ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      754        |      14        
+      Actual Anomalous  |      20         |      940       
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.97      0.98      0.98       768
+      Anomalous (1)       0.99      0.98      0.98       960
+      
+           accuracy                           0.98      1728
+          macro avg       0.98      0.98      0.98      1728
+       weighted avg       0.98      0.98      0.98      1728
+      
+
+================================================================================
+
+>>> RUN 2 (Parameter Mikro | Epoch Tinggi)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 1
+    - LBP Radius (R)       : 1
+    - Total Epoch          : 15
+    - Final Train Loss     : 0.038988
+    - Final Train Accuracy : 0.9815 (98.15%)
+    - Final Test Accuracy  : 0.9826 (98.26%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 0.361187 | [===================================>]
+      Epoch 02 | 0.159027 | [===============>                    ]
+      Epoch 03 | 0.117728 | [===========>                        ]
+      Epoch 04 | 0.096829 | [=========>                          ]
+      Epoch 05 | 0.096581 | [=========>                          ]
+      Epoch 06 | 0.093084 | [=========>                          ]
+      Epoch 07 | 0.078021 | [=======>                            ]
+      Epoch 08 | 0.058182 | [=====>                              ]
+      Epoch 09 | 0.055491 | [=====>                              ]
+      Epoch 10 | 0.056841 | [=====>                              ]
+      Epoch 11 | 0.055145 | [=====>                              ]
+      Epoch 12 | 0.051564 | [====>                               ]
+      Epoch 13 | 0.046131 | [====>                               ]
+      Epoch 14 | 0.040422 | [===>                                ]
+      Epoch 15 | 0.038988 | [===>                                ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      758        |      10        
+      Actual Anomalous  |      20         |      940       
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.97      0.99      0.98       768
+      Anomalous (1)       0.99      0.98      0.98       960
+      
+           accuracy                           0.98      1728
+          macro avg       0.98      0.98      0.98      1728
+       weighted avg       0.98      0.98      0.98      1728
+      
+
+================================================================================
+
+>>> RUN 3 (Parameter Makro | Epoch Tinggi)
+    ----------------------------------------
+    - GLCM Jarak (d)       : 3
+    - LBP Radius (R)       : 2
+    - Total Epoch          : 15
+    - Final Train Loss     : 0.016955
+    - Final Train Accuracy : 0.9969 (99.69%)
+    - Final Test Accuracy  : 0.9815 (98.15%)
+
+    GRAFIK TRACKING LOSS PER EPOCH:
+      Epoch 01 | 0.299911 | [===================================>]
+      Epoch 02 | 0.099823 | [===========>                        ]
+      Epoch 03 | 0.068804 | [========>                           ]
+      Epoch 04 | 0.051361 | [=====>                              ]
+      Epoch 05 | 0.043027 | [=====>                              ]
+      Epoch 06 | 0.036844 | [====>                               ]
+      Epoch 07 | 0.032911 | [===>                                ]
+      Epoch 08 | 0.029619 | [===>                                ]
+      Epoch 09 | 0.026643 | [===>                                ]
+      Epoch 10 | 0.023177 | [==>                                 ]
+      Epoch 11 | 0.019342 | [==>                                 ]
+      Epoch 12 | 0.019003 | [==>                                 ]
+      Epoch 13 | 0.017069 | [=>                                  ]
+      Epoch 14 | 0.018559 | [==>                                 ]
+      Epoch 15 | 0.016955 | [=>                                  ]
+
+    CONFUSION MATRIX:
+                         Predicted Nominal   Predicted Anomalous
+      Actual Nominal    |      749        |      19        
+      Actual Anomalous  |      13         |      947       
+
+    CLASSIFICATION REPORT:
+                     precision    recall  f1-score   support
+      
+        Nominal (0)       0.98      0.98      0.98       768
+      Anomalous (1)       0.98      0.99      0.98       960
+      
+           accuracy                           0.98      1728
+          macro avg       0.98      0.98      0.98      1728
+       weighted avg       0.98      0.98      0.98      1728
+      
+
+================================================================================
